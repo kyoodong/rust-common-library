@@ -1,9 +1,9 @@
 [package]
-name = "common-library"
+name = "cosmwasm-common-library"
 version = "0.1.1"
 authors = ["dawn"]
 edition = "2021"
-description = "Rust common library"
+description = "Cosmwasm common library"
 license = "Apache-2.0"
 repository = "https://github.com/kyoodong/rust-common-library"
 
