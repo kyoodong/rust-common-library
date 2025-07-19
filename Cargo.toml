@@ -1,11 +1,11 @@
 [package]
 name = "common-library"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["dawn"]
 edition = "2021"
 description = "Rust common library"
 license = "Apache-2.0"
-repository = ""
+repository = "https://github.com/kyoodong/rust-common-library"
 
 [dependencies]
 cosmwasm-std = { version = "2.1.4", features = ["cosmwasm_2_1"] }

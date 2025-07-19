@@ -1,9 +1,8 @@
 use crate::bigdecimal::BigDecimal;
-use crate::common::ContractResult;
 use core::fmt::{Display, Formatter};
 use core::str::FromStr;
 use cosmwasm_schema::cw_serde;
-use cosmwasm_std::{StdError, Uint128, Uint256};
+use cosmwasm_std::{StdError, StdResult, Uint128, Uint256};
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
 
 #[cw_serde]
@@ -19,7 +18,7 @@ impl BigInteger {
         Self(self.0 * Uint256::from(10u64).pow(decimals))
     }
 
-    pub fn to_uint128(&self) -> ContractResult<Uint128> {
+    pub fn to_uint128(&self) -> StdResult<Uint128> {
         Ok(Uint128::try_from(self.0)?)
     }
 
