@@ -1,6 +1,6 @@
 [package]
 name = "cosmwasm-common-library"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["dawn"]
 edition = "2021"
 description = "Cosmwasm common library"
@@ -12,6 +12,7 @@ cosmwasm-std = { version = "2.1.4", features = ["cosmwasm_2_1"] }
 cosmwasm-schema = { version = "2.1.4" }
 serde = { version = "1.0.139", default-features = false, features = ["derive"] }
 schemars = "0.8.10"
+cw20 = "2.0.0"
 
 [profile.release]
 opt-level = 3
