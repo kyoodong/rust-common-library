@@ -96,6 +96,24 @@ impl From<u64> for BigInteger {
     }
 }
 
+impl From<u32> for BigInteger {
+    fn from(value: u32) -> Self {
+        Self(Uint256::from(value))
+    }
+}
+
+impl From<u16> for BigInteger {
+    fn from(value: u16) -> Self {
+        Self(Uint256::from(value))
+    }
+}
+
+impl From<u8> for BigInteger {
+    fn from(value: u8) -> Self {
+        Self(Uint256::from(value))
+    }
+}
+
 impl Sub<BigInteger> for BigInteger {
     type Output = BigInteger;
 
