@@ -15,15 +15,15 @@ impl BigDecimal {
     pub const MAX: Self = Self(Decimal256::MAX);
     pub const MIN: Self = Self(Decimal256::MIN);
 
+    pub fn new(bigint: BigInteger) -> Self {
+        Self(Decimal256::new(bigint.0))
+    }
+
     pub fn from(bigint: BigInteger, decimals: u32) -> Self {
         Self(Decimal256::from_ratio(
             bigint.0,
             Uint128::from(10u64).pow(decimals),
         ))
-    }
-
-    pub fn from_raw(bigint: BigInteger) -> Self {
-        Self(Decimal256::new(bigint.0))
     }
 
     pub fn is_zero(&self) -> bool {

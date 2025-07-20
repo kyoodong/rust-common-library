@@ -50,6 +50,14 @@ impl BigInteger {
     pub fn pow(&self, exp: u32) -> Self {
         Self(self.0.pow(exp))
     }
+
+    pub fn from_be_bytes(bytes: [u8; 32]) -> Self {
+        Self(Uint256::from_be_bytes(bytes))
+    }
+
+    pub fn from_le_bytes(bytes: [u8; 32]) -> Self {
+        Self(Uint256::from_le_bytes(bytes))
+    }
 }
 
 impl From<BigInteger> for String {
