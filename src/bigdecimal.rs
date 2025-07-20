@@ -1,6 +1,7 @@
 use crate::biginteger::BigInteger;
 use core::fmt::{Display, Formatter};
 use core::str::FromStr;
+use std::iter::Sum;
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Decimal256, StdError, Uint128, Uint256};
 use std::ops::{Add, AddAssign, Div, Mul, MulAssign, Sub, SubAssign};
@@ -176,5 +177,18 @@ impl FromStr for BigDecimal {
         }
 
         Ok(Self(Decimal256::new(atomics)))
+    }
+}
+
+
+impl Sum for BigDecimal {
+    fn sum<I: Iterator<Item=Self>>(iter: I) -> Self {
+        iter.fold(Self::zero(), Add::add)
+    }
+}
+
+impl <'a> Sum<&'a BigDecimal> for BigDecimal {
+    fn sum<I: Iterator<Item=&'a Self>>(iter: I) -> Self {
+        iter.fold(Self::zero(), |a, b| a + *b)
     }
 }

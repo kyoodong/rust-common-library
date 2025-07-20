@@ -1,6 +1,7 @@
 use crate::bigdecimal::BigDecimal;
 use core::fmt::{Display, Formatter};
 use core::str::FromStr;
+use std::iter::Sum;
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{StdError, StdResult, Uint128, Uint256};
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
@@ -170,6 +171,18 @@ impl Display for BigInteger {
     }
 }
 
+impl Sum for BigInteger {
+    fn sum<I: Iterator<Item=Self>>(iter: I) -> Self {
+        iter.fold(Self::zero(), Add::add)
+    }
+}
+
+impl <'a> Sum<&'a BigInteger> for BigInteger {
+    fn sum<I: Iterator<Item=&'a Self>>(iter: I) -> Self {
+        iter.fold(Self::zero(), |a, b| a + *b)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use crate::bigdecimal::BigDecimal;
@@ -188,5 +201,12 @@ mod tests {
         let d = BigDecimal::from(BigInteger::from(100000000000000000000u128), 0);
         let i = BigInteger::from(100000000000000000000u128);
         assert_eq!(i / d, BigDecimal::one());
+    }
+
+    #[test]
+    fn test_sum() {
+        let vector: Vec<BigInteger> = vec![BigInteger::from(1u64), BigInteger::from(2u64), BigInteger::from(3u64)];
+        assert_eq!(vector.clone().into_iter().sum::<BigInteger>(), BigInteger::from(6u64));
+        assert_eq!(vector.iter().sum::<BigInteger>(), BigInteger::from(6u64));
     }
 }

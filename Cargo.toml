@@ -1,6 +1,6 @@
 [package]
 name = "cosmwasm-common-library"
-version = "0.1.3"
+version = "0.1.4"
 authors = ["dawn"]
 edition = "2021"
 description = "Cosmwasm common library"
