@@ -15,6 +15,10 @@ impl BigInteger {
     pub const MAX: Self = Self(Uint256::MAX);
     pub const MIN: Self = Self(Uint256::MIN);
 
+    pub fn new(value: u128) -> Self {
+        Self::from(value)
+    }
+
     pub fn scale_down(&self, decimals: u32) -> BigDecimal {
         BigDecimal::from(*self, decimals)
     }
