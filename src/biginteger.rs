@@ -58,6 +58,14 @@ impl BigInteger {
     pub fn from_le_bytes(bytes: [u8; 32]) -> Self {
         Self(Uint256::from_le_bytes(bytes))
     }
+
+    pub fn to_be_bytes(&self) -> [u8; 32] {
+        self.0.to_be_bytes()
+    }
+
+    pub fn to_le_bytes(&self) -> [u8; 32] {
+        self.0.to_le_bytes()
+    }
 }
 
 impl From<BigInteger> for String {
