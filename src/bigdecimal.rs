@@ -1,9 +1,9 @@
 use crate::biginteger::BigInteger;
 use core::fmt::{Display, Formatter};
 use core::str::FromStr;
-use std::iter::Sum;
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Decimal256, StdError, Uint128, Uint256};
+use std::iter::Sum;
 use std::ops::{Add, AddAssign, Div, Mul, MulAssign, Sub, SubAssign};
 
 #[cw_serde]
@@ -64,6 +64,22 @@ impl BigDecimal {
 
     pub fn is_ratio(&self) -> bool {
         *self >= BigDecimal::zero() && *self <= BigDecimal::one()
+    }
+
+    pub fn from_be_bytes(bytes: [u8; 32]) -> Self {
+        Self(Decimal256::new(Uint256::from_be_bytes(bytes)))
+    }
+
+    pub fn from_le_bytes(bytes: [u8; 32]) -> Self {
+        Self(Decimal256::new(Uint256::from_le_bytes(bytes)))
+    }
+
+    pub fn to_be_bytes(&self) -> [u8; 32] {
+        self.0.atomics().to_be_bytes()
+    }
+
+    pub fn to_le_bytes(&self) -> [u8; 32] {
+        self.0.atomics().to_le_bytes()
     }
 }
 
@@ -194,5 +210,19 @@ impl Sum for BigDecimal {
 impl <'a> Sum<&'a BigDecimal> for BigDecimal {
     fn sum<I: Iterator<Item=&'a Self>>(iter: I) -> Self {
         iter.fold(Self::zero(), |a, b| a + *b)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::bigdecimal::BigDecimal;
+    use crate::biginteger::BigInteger;
+    use cosmwasm_std::Uint256;
+
+    #[test]
+    fn test_bytes() {
+        let bigdecimal = BigDecimal::from(BigInteger(Uint256::from(1000000u64)), 0);
+
+        assert_eq!(BigDecimal::from_be_bytes(bigdecimal.to_be_bytes()), bigdecimal);
     }
 }

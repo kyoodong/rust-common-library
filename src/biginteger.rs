@@ -251,4 +251,11 @@ mod tests {
         assert_eq!(vector.clone().into_iter().sum::<BigInteger>(), BigInteger::from(6u64));
         assert_eq!(vector.iter().sum::<BigInteger>(), BigInteger::from(6u64));
     }
+
+    #[test]
+    fn test_bytes() {
+        let i = BigInteger(Uint256::from(1000000u64));
+
+        assert_eq!(BigInteger::from_be_bytes(i.to_be_bytes()), i);
+    }
 }
