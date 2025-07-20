@@ -51,6 +51,10 @@ impl BigInteger {
         Self(self.0.saturating_sub(rhs.0))
     }
 
+    pub fn checked_sub(&self, rhs: Self) -> StdResult<Self> {
+        Ok(Self(self.0.checked_sub(rhs.0)?))
+    }
+
     pub fn pow(&self, exp: u32) -> Self {
         Self(self.0.pow(exp))
     }
