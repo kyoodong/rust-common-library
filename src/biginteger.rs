@@ -43,6 +43,10 @@ impl BigInteger {
         Self(Uint256::zero())
     }
 
+    pub fn one() -> Self {
+        Self(Uint256::one())
+    }
+
     pub fn saturating_sub(&self, rhs: Self) -> Self {
         Self(self.0.saturating_sub(rhs.0))
     }
