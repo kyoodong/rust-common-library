@@ -11,6 +11,10 @@ use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
 pub struct BigInteger(pub Uint256);
 
 impl BigInteger {
+
+    pub const MAX: Self = Self(Uint256::MAX);
+    pub const MIN: Self = Self(Uint256::MIN);
+
     pub fn scale_down(&self, decimals: u32) -> BigDecimal {
         BigDecimal::from(*self, decimals)
     }

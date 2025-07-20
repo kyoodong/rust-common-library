@@ -11,6 +11,10 @@ use std::ops::{Add, AddAssign, Div, Mul, MulAssign, Sub, SubAssign};
 pub struct BigDecimal(pub Decimal256);
 
 impl BigDecimal {
+
+    pub const MAX: Self = Self(Decimal256::MAX);
+    pub const MIN: Self = Self(Decimal256::MIN);
+
     pub fn from(bigint: BigInteger, decimals: u32) -> Self {
         Self(Decimal256::from_ratio(
             bigint.0,
